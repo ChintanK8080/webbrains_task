@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:webbrains_task/utility/app_colors.dart';
 import 'package:webbrains_task/utility/app_strings.dart';
 import 'package:webbrains_task/utility/app_textstyle.dart';
+import 'package:webbrains_task/view/screen/login_screen.dart';
 import 'package:webbrains_task/view/widget/custom_button.dart';
 import 'package:webbrains_task/view/widget/custom_textfield.dart';
 
-import 'signup_screen.dart';
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   bool isChecked = false;
-  bool isObsecure = true;
-
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneNumberController = TextEditingController();
   final passwordController = TextEditingController();
 
   _notify([Function? function]) {
@@ -40,44 +39,45 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Text(AppStrings.webbrains, style: AppTextStyle.titleText),
               const SizedBox(
                 height: 41.7,
               ),
               const Text(
-                AppStrings.welcomeLine,
+                AppStrings.createAnAccount,
                 style: AppTextStyle.headingText,
               ),
               const SizedBox(
                 height: 25,
               ),
               CustomTextfield(
-                controller: emailController,
-                text: AppStrings.email,
-                hintText: AppStrings.emailHint,
+                controller: nameController,
+                text: AppStrings.name,
+                hintText: AppStrings.nameHint,
               ),
               const SizedBox(
-                height: 12,
+                height: 9,
+              ),
+              CustomTextfield(
+                controller: emailController,
+                text: AppStrings.emailAddress,
+                hintText: AppStrings.emailAddressHint,
+              ),
+              const SizedBox(
+                height: 9,
+              ),
+              CustomTextfield(
+                controller: phoneNumberController,
+                text: AppStrings.phone,
+                hintText: AppStrings.phoneHint,
+              ),
+              const SizedBox(
+                height: 9,
               ),
               CustomTextfield(
                 controller: passwordController,
                 text: AppStrings.password,
-                isObsecure: isObsecure,
                 hintText: AppStrings.passwordHint,
-                trailing: GestureDetector(
-                  onTap: () {
-                    isObsecure = !isObsecure;
-                    _notify();
-                  },
-                  child: isObsecure
-                      ? const Icon(
-                          Icons.visibility,
-                          size: 18,
-                        )
-                      : const Icon(
-                          Icons.visibility_off,
-                          size: 18,
-                        ),
-                ),
               ),
               const SizedBox(
                 height: 17,
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Flexible(
                 child: CustomButton(
-                  text: AppStrings.login,
+                  text: AppStrings.signUp,
                   onPress: () async {},
                 ),
               ),
@@ -100,20 +100,22 @@ class _LoginPageState extends State<LoginPage> {
         alignment: Alignment.center,
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const SignUpPage(),
-            ));
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const LoginPage(),
+                ),
+                (route) => false);
           },
           child: RichText(
             text: TextSpan(
               children: [
                 const TextSpan(
-                  text: AppStrings.dontHaveAnAccount,
+                  text: AppStrings.alreadyHaveAnAccount,
                   style: AppTextStyle.hintStyle,
                 ),
                 const TextSpan(text: "  "),
                 TextSpan(
-                  text: AppStrings.signUp,
+                  text: AppStrings.login,
                   style: AppTextStyle.buttonText.copyWith(
                     color: AppColors.primaryColor,
                   ),
