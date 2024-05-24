@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:webbrains_task/controller/user_controller.dart';
+import 'package:webbrains_task/routes/routes.dart';
 import 'package:webbrains_task/utility/app_colors.dart';
 import 'package:webbrains_task/utility/app_strings.dart';
 import 'package:webbrains_task/utility/app_textstyle.dart';
 import 'package:webbrains_task/view/widget/custom_button.dart';
 import 'package:webbrains_task/view/widget/custom_textfield.dart';
-
-import 'signup_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,7 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isChecked = false;
   bool isObsecure = true;
-
+  UserController controller = Get.find<UserController>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -88,7 +89,12 @@ class _LoginPageState extends State<LoginPage> {
               Flexible(
                 child: CustomButton(
                   text: AppStrings.login,
-                  onPress: () async {},
+                  onPress: () async {
+                    await controller.login(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        context: context);
+                  },
                 ),
               ),
             ],
@@ -100,9 +106,7 @@ class _LoginPageState extends State<LoginPage> {
         alignment: Alignment.center,
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const SignUpPage(),
-            ));
+            Get.offAllNamed(Routes.signup);
           },
           child: RichText(
             text: TextSpan(
