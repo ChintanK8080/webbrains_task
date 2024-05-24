@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"webbrains-task","appId":"1:855107827951:android:0a45827df92659d7ac831a","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"webbrains-task","configurations":{"android":"1:855107827951:android:0a45827df92659d7ac831a","ios":"1:855107827951:ios:8a17c18356f2cd34ac831a"}}}}}}

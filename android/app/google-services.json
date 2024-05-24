@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "855107827951",
+    "project_id": "webbrains-task",
+    "storage_bucket": "webbrains-task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855107827951:android:0a45827df92659d7ac831a",
+        "android_client_info": {
+          "package_name": "com.example.webbrains_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPCDFex78Ow002I9RpyfqImRCPXFRzncA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
