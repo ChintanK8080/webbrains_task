@@ -144,21 +144,21 @@ class _HomePageState extends State<HomePage>
                   height: 19,
                 ),
                 ProfileTile(
-                  prefix: "Email",
+                  prefix: AppStrings.email,
                   suffixText: controller.currentUser.value?.email ?? '',
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 ProfileTile(
-                  prefix: "Phone No.",
+                  prefix: AppStrings.phone,
                   suffixText: controller.currentUser.value?.phoneNo ?? '',
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 ProfileTile(
-                  prefix: "Log out",
+                  prefix: AppStrings.logout,
                   suffixWidget: GestureDetector(
                     onTap: () async {
                       controller.logout(context);

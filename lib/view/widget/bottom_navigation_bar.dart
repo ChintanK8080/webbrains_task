@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:webbrains_task/utility/app_assets.dart';
 import 'package:webbrains_task/utility/app_colors.dart';
+import 'package:webbrains_task/utility/app_strings.dart';
 import 'package:webbrains_task/utility/app_textstyle.dart';
 
 class BottomTabBar extends StatelessWidget {
@@ -35,7 +35,7 @@ class BottomTabBar extends StatelessWidget {
                   BlendMode.srcIn),
             ),
             Text(
-              "Users",
+              AppStrings.users,
               style: AppTextStyle.labelStyle.copyWith(
                 color: tabController?.index == 0
                     ? AppColors.primaryColor
@@ -60,7 +60,7 @@ class BottomTabBar extends StatelessWidget {
                   BlendMode.srcIn),
             ),
             Text(
-              "User",
+              AppStrings.user,
               style: AppTextStyle.labelStyle.copyWith(
                 color: tabController?.index == 1
                     ? AppColors.primaryColor

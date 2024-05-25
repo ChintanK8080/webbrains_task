@@ -97,7 +97,6 @@ class UserController extends GetxController {
     try {
       CollectionReference usersListRef =
           FirebaseFirestore.instance.collection('users');
-      log("------" * 20);
       await usersListRef.add(user.toJson());
       await Utility.setUsers(user);
       onSuccess();

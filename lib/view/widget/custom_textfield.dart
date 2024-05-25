@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:webbrains_task/utility/app_colors.dart';
+import 'package:webbrains_task/utility/app_strings.dart';
 
 class CustomTextfield extends StatefulWidget {
   const CustomTextfield(
@@ -40,7 +41,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           height: 41,
           child: TextFormField(
             validator: (value) {
-              return "enter valid data";
+              return AppStrings.enterValidData;
             },
             controller: widget.controller,
             obscureText: widget.isObsecure,

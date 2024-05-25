@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:webbrains_task/models/user_model.dart' as user;
 import 'package:webbrains_task/utility/app_assets.dart';
+import 'package:webbrains_task/utility/app_strings.dart';
 import 'package:webbrains_task/utility/sqflite_methods.dart';
 
 class Utility {
@@ -47,23 +48,23 @@ class Utility {
   }) {
     if (name != null && name.isEmpty) {
       FlutterToastr.show(
-        "Please enter valid name",
+        AppStrings.enterValidName,
         context,
       );
     } else if (email.isEmpty || !Utility.isValidEmail(email)) {
       FlutterToastr.show(
-        "Please enter valid email",
+        AppStrings.enterValidEmail,
         context,
       );
     } else if (phoneNumber != null &&
         (phoneNumber.length < 10 || phoneNumber.length < 10)) {
       FlutterToastr.show(
-        "Phone Number must be between 10 to 12 digits",
+        AppStrings.phoneNumberValidation,
         context,
       );
     } else if (password.length < 8) {
       FlutterToastr.show(
-        "Password must be contain at least 8 characters",
+        AppStrings.passwordValidation,
         context,
       );
     } else {

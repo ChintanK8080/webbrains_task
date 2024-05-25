@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:webbrains_task/controller/user_controller.dart';
 import 'package:webbrains_task/utility/app_colors.dart';
+import 'package:webbrains_task/utility/app_strings.dart';
 import 'package:webbrains_task/utility/app_textstyle.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
         color: AppColors.white,
         child: Center(
           child: Text(
-            "Webbrains",
+            AppStrings.webbrains,
             style: AppTextStyle.headingText
                 .copyWith(color: AppColors.primaryColor),
           ),

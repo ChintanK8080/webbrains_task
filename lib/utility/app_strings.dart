@@ -6,6 +6,7 @@ class AppStrings {
   static const emailHint = "Please Enter Your Email";
   static const remeberMe = "Remember Me";
   static const login = "Login";
+  static const logout = "Logout";
   static const name = "Name";
   static const webbrains = "Webbrains";
   static const nameHint = "Please Enter Your Name";
@@ -15,7 +16,16 @@ class AppStrings {
   static const emailAddressHint = "Enter your email";
   static const signUp = "Sign Up";
   static const users = "Users";
+  static const user = "User";
   static const dontHaveAnAccount = "Don't have an account?";
   static const createAnAccount = "Create an account";
   static const alreadyHaveAnAccount = "Already have an Account ?";
+  static const enterValidData = "Enter valid data";
+  static const enterValidPassword = "Enter valid password";
+  static const enterValidName = "Please enter valid name";
+  static const enterValidEmail = "Please enter valid email";
+  static const phoneNumberValidation =
+      "Phone Number must be between 10 to 12 digits";
+  static const passwordValidation =
+      "Password must be contain at least 8 characters";
 }
