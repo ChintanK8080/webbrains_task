@@ -26,10 +26,8 @@ class UserController extends GetxController {
         email: user.email,
         password: password,
       );
-      if (credential.user != null) {
-        if (user.name.trim().isNotEmpty) {
-          credential.user!.updateDisplayName(user.name.trim());
-        }
+      if (credential.user != null && user.name.trim().isNotEmpty) {
+        credential.user!.updateDisplayName(user.name.trim());
       }
       onSuccess(user);
       return credential;
