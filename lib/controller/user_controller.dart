@@ -7,6 +7,7 @@ import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:get/get.dart';
 import 'package:webbrains_task/models/user_model.dart' as user;
 import 'package:webbrains_task/routes/routes.dart';
+import 'package:webbrains_task/utility/app_strings.dart';
 import 'package:webbrains_task/utility/utility.dart';
 
 class UserController extends GetxController {
@@ -34,10 +35,9 @@ class UserController extends GetxController {
       return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        FlutterToastr.show('The password provided is too weak.', context);
+        FlutterToastr.show(AppStrings.weakPasswordError, context);
       } else if (e.code == 'email-already-in-use') {
-        FlutterToastr.show(
-            'The account already exists for that email.', context);
+        FlutterToastr.show(AppStrings.accountAlreadyUseError, context);
       }
     } catch (e) {
       FlutterToastr.show(e.toString(), context);
@@ -80,9 +80,13 @@ class UserController extends GetxController {
   }
 
   Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    await Utility.clearPref();
-    Get.offAllNamed(Routes.login);
+    if (await Utility.checkInternet()) {
+      await FirebaseAuth.instance.signOut();
+      await Utility.clearPref();
+      Get.offAllNamed(Routes.login);
+    } else {
+      FlutterToastr.show(AppStrings.noInternetConnection, context);
+    }
   }
 
   Future<void> authenticateUser(BuildContext context) async {
@@ -126,7 +130,7 @@ class UserController extends GetxController {
       availableUsers.value = tempUsersList;
       update();
     } catch (e) {
-      print('Error getting user data: $e');
+      log('Error getting user data: $e');
     }
   }
 

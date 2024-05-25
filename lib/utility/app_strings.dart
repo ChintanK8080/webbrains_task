@@ -23,7 +23,11 @@ class AppStrings {
   static const enterValidData = "Enter valid data";
   static const enterValidPassword = "Enter valid password";
   static const enterValidName = "Please enter valid name";
+  static const noInternetConnection = "No Internet Connection";
   static const enterValidEmail = "Please enter valid email";
+  static const weakPasswordError = "The password provided is too weak.";
+  static const accountAlreadyUseError =
+      "The account already exists for that email.";
   static const phoneNumberValidation =
       "Phone Number must be between 10 to 12 digits";
   static const passwordValidation =
