@@ -5,6 +5,7 @@ import 'package:webbrains_task/routes/routes.dart';
 import 'package:webbrains_task/utility/app_colors.dart';
 import 'package:webbrains_task/utility/app_strings.dart';
 import 'package:webbrains_task/utility/app_textstyle.dart';
+import 'package:webbrains_task/utility/utility.dart';
 import 'package:webbrains_task/view/widget/custom_button.dart';
 import 'package:webbrains_task/view/widget/custom_textfield.dart';
 
@@ -90,10 +91,18 @@ class _LoginPageState extends State<LoginPage> {
                 child: CustomButton(
                   text: AppStrings.login,
                   onPress: () async {
-                    await controller.login(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        context: context);
+                    Utility.validator(
+                      context,
+                      email: emailController.text,
+                      password: passwordController.text,
+                      onSuccess: () async {
+                        await controller.login(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          context: context,
+                        );
+                      },
+                    );
                   },
                 ),
               ),

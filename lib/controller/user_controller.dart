@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
@@ -9,6 +10,9 @@ import 'package:webbrains_task/routes/routes.dart';
 import 'package:webbrains_task/utility/utility.dart';
 
 class UserController extends GetxController {
+  Rx<user.User?> currentUser = Rx(null);
+  Rx<List<user.User?>> availableUsers = Rx([]);
+
   Future<UserCredential?> register({
     required user.User user,
     required String password,
@@ -50,10 +54,12 @@ class UserController extends GetxController {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (credential.user != null) {
-        await Utility.setUsers(user.User(
-            name: credential.user?.displayName ?? '',
-            phoneNo: credential.user?.phoneNumber ?? '',
-            email: credential.user?.email ?? ''));
+        currentUser.value = user.User(
+          name: credential.user?.displayName ?? '',
+          phoneNo: credential.user?.phoneNumber ?? '',
+          email: credential.user?.email ?? '',
+        );
+        await Utility.setUsers(currentUser.value!);
         Get.offAllNamed(Routes.home);
       }
     } on FirebaseAuthException catch (e) {
@@ -79,42 +85,57 @@ class UserController extends GetxController {
     Get.offAllNamed(Routes.login);
   }
 
-  void validator(
-    BuildContext context, {
-    required String email,
-    required String password,
-    String? name,
-    String? phoneNumber,
-    required Function() onSuccess,
-  }) {
-    if (name != null && name.isEmpty) {
-      FlutterToastr.show(
-        "Please enter valid name",
-        context,
-      );
-    } else if (email.isEmpty || !Utility.isValidEmail(email)) {
-      FlutterToastr.show(
-        "Please enter valid email",
-        context,
-      );
-    } else if (phoneNumber != null &&
-        (phoneNumber.length < 10 || phoneNumber.length < 10)) {
-      FlutterToastr.show(
-        "Phone Number must be between 10 to 12 digits",
-        context,
-      );
-    } else if (password.length < 8) {
-      FlutterToastr.show(
-        "Password must be contain at least 8 characters",
-        context,
-      );
-    } else {
-      onSuccess();
-    }
-  }
-
   Future<void> authenticateUser(BuildContext context) async {
     user.User? userData = await Utility.getUser();
     Get.offAllNamed((userData != null) ? Routes.home : Routes.login);
+  }
+
+  Future<void> storeUserData({
+    required user.User user,
+    required Function() onSuccess,
+  }) async {
+    try {
+      CollectionReference usersListRef =
+          FirebaseFirestore.instance.collection('users');
+      log("------" * 20);
+      await usersListRef.add(user.toJson());
+      await Utility.setUsers(user);
+      onSuccess();
+
+      log('User data stored successfully!');
+    } catch (e) {
+      log('Error storing user data: $e');
+    }
+  }
+
+  Future<void> getAllUserData() async {
+    List<user.User> tempUsersList = [];
+    try {
+      CollectionReference userDataRef =
+          FirebaseFirestore.instance.collection('users');
+
+      QuerySnapshot querySnapshot = await userDataRef.get();
+
+      for (var doc in querySnapshot.docs) {
+        final userData = user.User.fromJson(doc.data() as Map<String, dynamic>);
+        if (currentUser.value?.email != userData.email) {
+          tempUsersList.add(userData);
+        } else {
+          currentUser.value = userData;
+        }
+      }
+      availableUsers.value = tempUsersList;
+      update();
+    } catch (e) {
+      print('Error getting user data: $e');
+    }
+  }
+
+  Future<void> getCurrentUserData() async {
+    final userData = await Utility.getUser();
+    if (userData != null) {
+      currentUser.value = userData;
+      update();
+    }
   }
 }

@@ -94,15 +94,27 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: CustomButton(
                   text: AppStrings.signUp,
                   onPress: () async {
-                    await controller.register(
-                      user: user.User(
-                          email: emailController.text,
-                          name: nameController.text,
-                          phoneNo: phoneNumberController.text),
+                    Utility.validator(
+                      context,
+                      email: emailController.text,
                       password: passwordController.text,
-                      context: context,
-                      onSuccess: (user) async {
-                        await Utility.setUsers(user);
+                      onSuccess: () async {
+                        await controller.register(
+                          user: user.User(
+                              email: emailController.text,
+                              name: nameController.text,
+                              phoneNo: phoneNumberController.text),
+                          password: passwordController.text,
+                          context: context,
+                          onSuccess: (user) async {
+                            await controller.storeUserData(
+                              user: user,
+                              onSuccess: () {
+                                Get.offAllNamed(Routes.login);
+                              },
+                            );
+                          },
+                        );
                       },
                     );
                   },
